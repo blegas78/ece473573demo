@@ -1,0 +1,35 @@
+<launch>
+
+	<arg name="my_param_value" value="string is now this" />
+	<arg name="my_node_name" value="new_node_name" />
+
+	<group ns="my_namespace">
+<!--
+		<node name="my_turtle_sim_thing" pkg="turtlesim" type="turtlesim_node">
+			<remap from="turtle1/pose" to="$(arg my_node_name)/pose" />
+		</node>
+-->
+
+		<node name="$(arg my_node_name)" pkg="my_package" type="talker" output="screen">
+			<remap from="~/cmd_vel" to="/azcar_sim/cmd_vel" />
+
+			<param name="my_param" value="$(arg my_param_value)" type="string" />
+
+		</node>
+
+	</group>
+
+	<node name="my_recorder" pkg="rosbag" type="record" args="-a -o /home/ece446/Desktop/"/>
+
+<!--
+	<node name="my_turtle_sim_thing2" pkg="turtlesim" type="turtlesim_node" respawn="true">
+	</node>
+
+	<node name="my_turtle_controller" pkg="turtlesim" type="turtle_teleop_key">
+	</node>
+-->
+
+
+</launch>
+
+
